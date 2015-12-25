@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+	<title>Linkcollector</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css"
+			href="../css/default.css" th:href="@{/resources/css/default.css}" />
+    </head>
+
+    <body>
+	<div id="wrapper">
+	<div th:replace="template :: header"></div>
+	<p>Thank you!</p>
+	<div class="tagslist" th:unless="${#lists.isEmpty(tagslist.tags)}">
+	    <h2>List of tags</h2>
+	    <table>
+		<tr th:each="qt : ${tagslist.tags}">
+		    <td th:text="${qt.tagText}">Tag Text</td>
+		    <td th:text="${qt.tagWeight}">Tag Weight</td>
+		</tr>
+	    </table>
+	</div>
+	<form action="#" th:action="@{/search} + '?tags=' + ${param.tags[0]}" method="get">
+	    <button type="submit">Book Hotel</button>
+	</form>
+	<a href="#" th:href="@{/search} + '?tags=' + ${param.tags[0]}">Edit tags</a>
+	<div th:replace="template :: copyright"></div>
+	</div>
+    </body>
+</html>

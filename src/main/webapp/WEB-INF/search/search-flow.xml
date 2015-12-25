@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/webflow
+    http://www.springframework.org/schema/webflow/spring-webflow-2.4.xsd">
+
+	<on-start>
+		<evaluate expression="searchController.getSearchForm(requestParameters.tags)"
+			result="flowScope.searchForm" />
+	</on-start>
+
+	<view-state id="homepage" view="/search/homepage" model="searchForm">
+		<transition on="add" validation-hints="'add'">
+			<evaluate expression="flowScope.searchForm.addTag()" />
+			<render fragments="tagstable" />
+		</transition>
+
+		<transition on="delete" bind="false"
+			validate="false">
+			<evaluate expression="flowScope.searchForm.removeTag(requestParameters.qtidx)"></evaluate>
+			<render fragments="tagstable" />
+		</transition>
+		
+		<transition on="edit" bind="false"
+			validate="false">
+			<evaluate expression="flowScope.searchForm.setEditedTag(requestParameters.qtidx)"></evaluate>
+			<render fragments="tagstable" />
+		</transition>
+		
+		<transition on="update" validation-hints="'update'">
+			<evaluate expression="flowScope.searchForm.updateEditedTag()"></evaluate>
+			<render fragments="tagstable" />
+		</transition>
+		
+		<transition on="show" to="end" />
+		<transition on="cancel" to="end" />
+	</view-state>
+	
+	<end-state id="end">
+		<output name="tags" value="searchForm.tags" />
+		<output name="tagstr" value="searchForm.tags.toString()" />
+	</end-state>
+</flow>

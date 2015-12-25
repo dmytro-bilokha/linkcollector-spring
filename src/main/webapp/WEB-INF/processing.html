@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Linkcollector</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script>
+	function load() {
+		document.getElementById('link').click();
+	}
+	window.onload = load;
+</script>
+</head>
+
+<body>
+	<p>Please, wait. I am processing data.</p>
+	<a id="link" hidden="hidden"
+		th:href="@{/results} + '?tags=' + ${param.tags[0]}">Dont touch
+		this</a>
+</body>
+</html>

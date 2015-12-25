@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Linkcollector</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script type="text/javascript" src="#"
+	th:src="@{/resources/dojo/dojo.js}"></script>
+<script type="text/javascript" src="#"
+	th:src="@{/resources/spring/Spring.js}"></script>
+<script type="text/javascript" src="#"
+	th:src="@{/resources/spring/Spring-Dojo.js}"></script>
+</head>
+
+<body>
+	<form action="#" th:action="${flowExecutionUrl}"
+		th:object="${searchForm}" method="post" id="triggerform">
+		<label>Gimme text:</label> <input type="text" autocomplete="off"
+			th:field="*{tagText}" /> <p th:if="${#fields.hasErrors('tagText')}" th:text="${#fields.errors('tagText')[0]}">Incorrect date</p>
+			<br /> <label>Gimme number:</label> <input
+			type="text" autocomplete="off" th:field="*{tagWeight}" />
+			<p th:if="${#fields.hasErrors('tagWeight')}" th:text="${#fields.errors('tagWeight')[0]}">Incorrect date</p><br />
+		<button type="submit" id="doAdd" name="_eventId_add">Give tag</button>
+		<button type="submit" name="_eventId_show">Show</button>
+		<a href="homepage"
+			th:href="@{'~' + ${flowExecutionUrl}(_eventId='cancel')}">Cancel</a>
+		<div id="tagstable" th:fragment="tagstable">
+			<ul th:if="${#fields.hasErrors('*')}">
+				<li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input
+					is incorrect</li>
+			</ul>
+			<table>
+				<tr th:each="qt, iterStat : ${searchForm.tags.tags}">
+					<td><span th:text="${qt.tagText}"
+						th:if="${iterStat.index} neq ${searchForm.editedTagIndex}">Tag
+							Text</span> <input type="text" autocomplete="off"
+						th:field="${searchForm.editedTagText}"
+						th:if="${iterStat.index} eq ${searchForm.editedTagIndex}" /></td>
+					
+					<td><span th:text="${qt.tagWeight}"
+						th:if="${iterStat.index} neq ${searchForm.editedTagIndex}">Tag
+							Weight</span> <input type="text" autocomplete="off"
+						th:field="${searchForm.editedTagWeight}"
+						th:if="${iterStat.index} eq ${searchForm.editedTagIndex}" /></td>
+					<td><a href="#" th:id="'doEdit' + ${iterStat.index}"
+						th:attr="data-idx=${iterStat.index}" data-event="edit"
+						th:if="${iterStat.index} neq ${searchForm.editedTagIndex}">Edit</a>
+						<a href="#" th:id="'doUpdate' + ${iterStat.index}"
+						th:attr="data-idx=${iterStat.index}" data-event="update"
+						th:if="${iterStat.index} eq ${searchForm.editedTagIndex}">Update</a>
+						/ <a href="#" th:id="'doDelete' + ${iterStat.index}"
+						th:attr="data-idx=${iterStat.index}" data-event="delete">Delete</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</form>
+	<script type="text/javascript">
+		Spring.addDecoration(new Spring.AjaxEventDecoration({
+			formId : 'triggerform',
+			elementId : 'doAdd',
+			event : 'onclick'
+		}));
+		dojo.query("#tagstable a").forEach(function(element) {
+			Spring.addDecoration(new Spring.AjaxEventDecoration({
+				formId : 'triggerform',
+				elementId : element.id,
+				event : 'onclick',
+				params : {
+					qtidx : element.getAttribute('data-idx'),
+					_eventId : element.getAttribute('data-event')
+				}
+			}));
+		});
+	</script>
+</body>
+</html>

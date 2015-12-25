@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+	<title>Linkcollector</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+	<div th:fragment="header">
+	    <h1 class="thead">LinkCollector Application</h1>
+	    <div class="navbar">
+		<ul>
+		    <li><a th:href="@{/}">Home</a></li>
+		    <li><a th:href="@{/help}">Help</a></li>
+		    <li><a th:href="@{/contact}">Contact</a></li>
+		    <li><a th:href="@{/about}">About</a></li>
+		</ul>
+	    </div>
+	</div>
+	<div class="copyright" th:fragment="copyright">
+	    <p>&copy;2015 Dmytro Bilokha</p>
+	</div>
+    </body>
+</html>

@@ -1,0 +1,298 @@
+body {
+    background-color: #ffffff;
+    color: black;
+    text-align: justify;
+    width: 1000px;
+    margin: auto;
+    border: 1px solid black;
+    box-shadow: 1px 1px 9px grey;
+} 
+
+#wrapper {
+    width: 1000px;
+    min-height: 800px;
+    margin: 0 auto;
+    background-color: #f7f7f7;
+    padding: 0 0 3em 0;
+    position: relative;
+}
+
+p {
+    text-indent: 0;
+    line-height: 1.25;
+    font-family: sans-serif;
+}
+
+a:link {
+    color: #364395;
+}
+
+a:visited {
+    color: #303d8f;
+}
+
+a:hover {
+    color: #0089b7;
+}
+
+a:active {
+    color: blue;
+}
+
+ul {
+    list-style-type: square;
+}
+
+h1.thead {
+    background-color: green;
+    color: white;
+    text-align: left;
+    padding: 10px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+div.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+div.navbar li {
+    float: left;
+}
+
+div.navbar a:link, a:visited {
+    display: block;
+    width: 120px;
+    font-weight: bold;
+    color: #404040;
+    text-align: center;
+    padding: 6px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+div.navbar a:hover, a:active {
+    color: #eeeff0;
+    background-color: #5f6975;
+    cursor: default;
+}
+
+.navbar {
+    background-color: #e8e8e8;
+}
+
+.input-button {
+    font-weight: 700;
+    color: black;
+    background-color: #ffff99;
+}
+
+.input-button:disabled {
+    color: #999999;
+    background-color: #e5e5e5;
+}
+
+div.copyright {
+    width: 1000px;
+    background-color: green;
+    color: white;
+    position: absolute;
+    bottom: 0;
+}
+
+div.copyright p {
+    text-align: left;
+    font-size: 0.875em;
+    line-height: 1;
+    padding: 5px 5px 5px 5px;
+    margin: 0 0 0 0;
+}
+
+div.center {
+    margin-top: 16px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+table.inputform {
+    border-collapse: collapse;
+    padding: 5px 0 5px 0;
+    border-spacing: 0;
+}
+
+table.inputform td {
+    padding: 3px 0 3px 0;
+    white-space: nowrap;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.875em;
+    font-style: oblique;
+}
+
+.tags-table {   
+    border-collapse: collapse;
+    width: 50%;
+    margin-left: auto; 
+    margin-right: auto;
+}
+
+.tags-table-header {
+    font-size: 1.1em;
+    text-align: center;
+    background-color: #e5e5e5;
+    padding: 5px 7px 4px 7px;
+    border: 1px solid #bbbbbb;
+}
+
+.tags-table-odd-row {
+    background-color: #ffffff;
+    border: 1px solid #bbbbbb;
+}
+
+.tags-table-even-row {
+    background-color: #f7f7f7;
+    border: 1px solid #bbbbbb;
+}
+
+.tags-table-odd-row:hover {
+    color: #eeeff0;
+    background-color: #5f6975;
+}
+
+.tags-table-even-row:hover {
+    color: #eeeff0;
+    background-color: #5f6975;
+}
+
+.tags-table-1-col {
+    text-align: left;
+    padding: 3px 7px 3px 7px;
+    border: 1px solid #bbbbbb;
+}
+
+.tags-table-2-col {
+    text-align: right;
+    padding: 3px 7px 3px 7px;
+    border: 1px solid #bbbbbb;
+    width: 6em;
+}
+
+.tags-table-3-col {
+    text-align: center;
+    padding: 3px 7px 3px 7px;
+    border: 1px solid #bbbbbb;
+    width: 9em;
+}
+
+.tags-table-caption {
+    font-size: 1.2em;
+    text-align: center;
+    font-weight: bold;
+    padding: 7px 5px 7px 5px;
+} 
+
+.tags-table-link {
+    text-decoration: none;
+}
+
+.tags-table-link:hover {
+    color: #ff99ff;
+    cursor: default;
+}
+
+p.notags-message {
+    font-size: 1.2em;
+    text-align: center;
+    font-weight: bold;
+    padding: 7px 5px 7px 5px;
+} 
+
+.results-table {   
+    border-collapse: collapse;
+    padding: 3px 9px 3px 9px;
+    border: 0px;
+}
+
+.results-table-1-col {
+    text-align: center;
+    font-weight: bold;
+    color: #1b7639;
+    width: 5em;
+    padding: 1px 1px 1px 1px;
+}
+
+.results-table-2-col {
+    text-align: left;
+    font-weight: normal;
+    padding: 2em 1px 1px 1px;
+}
+
+.results-table p {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+
+.results-table-2-col a {
+    font-size: 1.2em;
+}
+
+.results-table-2-col a:visited {
+    color: #69059b;
+}
+
+.results-table-2-col a:hover {
+    color: #0089b7;
+}
+
+.display-url {
+    color: #1b7639;
+}
+
+.img-loading {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+p.edit-link {
+    text-align: right;
+    padding-right: 1em;
+    display: block;
+}
+
+.edit-link a {
+    color: #555555;
+    text-decoration: none;
+    padding: 10px;
+} 
+
+.edit-link a:hover {
+    background-color: #e8e8e8;
+    color: black;
+    border: 1px solid;
+    border-radius: 3px;
+    padding: 9px;
+    cursor: default;
+}
+
+h2 {
+    text-decoration: underline;
+}
+
+div.just-text {
+    margin: 1px 15px 1px 15px;
+}
+
+div.just-text li {
+    padding: 5px;
+}
+
+p span.displaynone { 
+    display:none; 
+}
