@@ -5,8 +5,13 @@
     <head>
 	<title>Linkcollector</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css"
+			href="../css/default.css" th:href="@{/resources/css/default.css}" />
+	<link rel="shortcut icon" type="image/x-icon"
+			   href="../images/favicon.ico'" th:href="@{/resources/images/favicon.ico}" />
     </head>
     <body>
+	<div id="wrapper">
 	<div th:fragment="header">
 	    <h1 class="thead">LinkCollector Application</h1>
 	    <div class="navbar">
@@ -20,6 +25,7 @@
 	</div>
 	<div class="copyright" th:fragment="copyright">
 	    <p>&copy;2015 Dmytro Bilokha</p>
+	</div>
 	</div>
     </body>
 </html>

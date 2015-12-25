@@ -5,6 +5,10 @@
 <head>
 <title>Linkcollector</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css"
+			href="../css/default.css" th:href="@{/resources/css/default.css}" />
+	<link rel="shortcut icon" type="image/x-icon"
+			   href="../images/favicon.ico'" th:href="@{/resources/images/favicon.ico}" />
 <script>
 	function load() {
 		document.getElementById('link').click();
@@ -14,9 +18,15 @@
 </head>
 
 <body>
-	<p>Please, wait. I am processing data.</p>
+	<div id="wrapper">
+	<div th:replace="template :: header"></div>
+				<p class="tags-table-caption">Retrieving data...</p>
+				<img th:src="@{/resources/images/preloader.gif}" src="../images/preloader.gif"
+					alt="Retrieving data..." class="img-loading" />
 	<a id="link" hidden="hidden"
 		th:href="@{/results} + '?tags=' + ${param.tags[0]}">Dont touch
 		this</a>
+	<div th:replace="template :: copyright"></div>
+	</div>
 </body>
 </html>
