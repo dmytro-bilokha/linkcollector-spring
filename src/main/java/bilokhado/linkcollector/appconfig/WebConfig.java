@@ -44,6 +44,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	public ViewResolver viewResolver(SpringTemplateEngine templateEngine) {
 		ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
 		viewResolver.setTemplateEngine(templateEngine);
+		viewResolver.setCharacterEncoding("UTF-8");
 		return viewResolver;
 	}
 
@@ -55,15 +56,17 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		return handlerAdapter;
 	}
 
-	@Bean(name = "search")
+/*	@Bean(name = "search")
 	public SearchFlowHandler SearchFlowHandler() {
 		return new SearchFlowHandler();
-	}
+	} */
 
 	@Bean
 	public AjaxThymeleafViewResolver tilesViewResolver() {
 		AjaxThymeleafViewResolver viewResolver = new AjaxThymeleafViewResolver();
 		viewResolver.setTemplateEngine(templateEngine());
+		viewResolver.setCharacterEncoding("UTF-8");
+		viewResolver.setContentType("text/html;charset=UTF-8");
 		return viewResolver;
 	}
 
@@ -80,6 +83,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		templateResolver.setPrefix("/WEB-INF/");
 		templateResolver.setSuffix(".html");
 		templateResolver.setTemplateMode("HTML5");
+		templateResolver.setCharacterEncoding("UTF-8");
+		templateResolver.setCacheable(false);
 		return templateResolver;
 	}
 
@@ -92,6 +97,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	public ResourceBundleMessageSource messageSource() {
 		ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();
 		resourceBundleMessageSource.setBasename("messages");
+		resourceBundleMessageSource.setDefaultEncoding("UTF-8");
 		return resourceBundleMessageSource;
 	}
 

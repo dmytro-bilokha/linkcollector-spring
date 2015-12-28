@@ -34,11 +34,10 @@
 		</transition>
 		
 		<transition on="show" to="end" />
-		<transition on="cancel" to="end" />
-	</view-state>
+		</view-state>
 	
-	<end-state id="end">
-		<output name="tags" value="searchForm.tags" />
-		<output name="tagstr" value="searchForm.tags.toString()" />
+	<end-state id="end" view="externalRedirect:contextRelative:/processing?tags=#{flowScope.searchForm.tags.toString()}">
+<!-- 		<output name="tags" value="searchForm.tags" /> -->
+<!-- 		<output name="tagstr" value="searchForm.tags.toString()" /> -->
 	</end-state>
 </flow>

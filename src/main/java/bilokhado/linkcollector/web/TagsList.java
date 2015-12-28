@@ -3,6 +3,8 @@ package bilokhado.linkcollector.web;
 import java.io.Serializable;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,6 +34,10 @@ public class TagsList implements Serializable {
 		tags.add(0, tag);
 	}
 
+	public void append(QueryTag tag) {
+		tags.add(tag);
+	}
+
 	public void remove(QueryTag tag) {
 		tags.remove(tag);
 	}
@@ -48,7 +54,7 @@ public class TagsList implements Serializable {
 	 * Normalizes tags list via removing tags with zero weight, deleting
 	 * duplicates and converting tags text to lower case.
 	 */
-	private void normalize() {
+	public void normalize() {
 		Map<String, Boolean> seen = new HashMap<>();
 		ListIterator<QueryTag> iterator = tags.listIterator(tags.size());
 		while (iterator.hasPrevious()) {
@@ -91,7 +97,14 @@ public class TagsList implements Serializable {
 	 * @throws Exception
 	 *             if JSON creation error occurs
 	 */
-	public void populateFromJson(String jsonData) throws Exception {
+	public void populateFromJson(String json64Data) throws Exception {
+		String jsonData = null;
+		try {
+			jsonData = new String(Base64.getUrlDecoder().decode(json64Data), StandardCharsets.UTF_8);
+		} catch (IllegalArgumentException e) {
+			logger.log(Level.SEVERE, "Error happen while trying to decode Base64 JSON string: " + json64Data, e);
+			throw new Exception("Unable to decode tags list from URL");
+		}
 		try (JsonParser parser = Json.createParser(new StringReader(jsonData))) {
 			String key = null;
 			while (parser.hasNext()) {
@@ -102,7 +115,7 @@ public class TagsList implements Serializable {
 					break;
 
 				case VALUE_NUMBER:
-					add(new QueryTag(key, parser.getInt()));
+					append(new QueryTag(key, parser.getInt()));
 					break;
 
 				case START_OBJECT:
@@ -118,7 +131,6 @@ public class TagsList implements Serializable {
 			logger.log(Level.SEVERE, "Error happen while parsing JSON string: " + jsonData, e);
 			throw new Exception("Unable to decode tags list from URL");
 		}
-		normalize();
 	}
 
 	/**
@@ -133,7 +145,8 @@ public class TagsList implements Serializable {
 			tags.forEach(t -> jgen.write(t.getTagText(), t.getTagWeight()));
 			jgen.writeEnd();
 			jgen.flush();
-			return buffer.toString();
+			return Base64.getUrlEncoder().withoutPadding()
+					.encodeToString(buffer.toString().getBytes(StandardCharsets.UTF_8));
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Unable to encode list of tags", e);
 			return null;
