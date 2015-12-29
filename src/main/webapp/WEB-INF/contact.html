@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+	<title>Linkcollector</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css"
+			href="../css/default.css" th:href="@{/resources/css/default.css}" />
+	<link rel="shortcut icon" type="image/x-icon"
+			   href="../images/favicon.ico'" th:href="@{/resources/images/favicon.ico}" />
+    </head>
+
+    <body>
+	<div id="wrapper">
+	    <div th:replace="template :: header"></div>
+	    <div class="just-text">
+		<h2>Contact author</h2>
+		<p>
+		Dmytro Bilokha <br />email: bilokha.do@<span class="displaynone">null</span>gmail.com<br />
+		tel.: +38050-607-41-43
+		</p>
+	    </div>
+	    <div th:replace="template :: copyright"></div>
+	</div>
+    </body>
+</html>

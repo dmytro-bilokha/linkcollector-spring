@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+	<title>Linkcollector</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css"
+			href="../css/default.css" th:href="@{/resources/css/default.css}" />
+	<link rel="shortcut icon" type="image/x-icon"
+			   href="../images/favicon.ico'" th:href="@{/resources/images/favicon.ico}" />
+    </head>
+
+    <body>
+	<div id="wrapper">
+	    <div th:replace="template :: header"></div>
+	    <div class="just-text">
+		<h2>Linkcollector</h2>
+		<p>Main goal of the application is to provide search results
+		with higher signal to noise ratio and sometimes avoid browsing
+		Google results for hours.</p>
+		<p>Linkcollector is something like search proxy server. It takes
+		your search query and sends it to the Bing search engine. All
+		results from Bing then are scored by linkcollector and showed
+		according to ranking.</p>
+	    </div>
+	    <div th:replace="template :: copyright"></div>
+	</div>
+    </body>
+</html>

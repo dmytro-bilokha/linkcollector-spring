@@ -13,7 +13,7 @@ public class ResultsController {
 
 	@RequestMapping(method = GET)
 	public String resultsPage(
-			@RequestParam(value = "tags", required = false) String tagsString,
+			@RequestParam(value = "tags", required = true) String tagsString,
 			Model model) {
 		TagsList tags = new TagsList();
 		if (tagsString != null && !tagsString.isEmpty()) {

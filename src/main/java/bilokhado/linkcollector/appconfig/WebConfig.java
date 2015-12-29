@@ -1,7 +1,5 @@
 package bilokhado.linkcollector.appconfig;
 
-import bilokhado.linkcollector.web.SearchFlowHandler;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +8,7 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
@@ -30,6 +29,14 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/", "classpath:/META-INF/web-resources/");
+	}
+
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		registry.addViewController("/processing").setViewName("/processing");
+		registry.addViewController("/about").setViewName("/about");
+		registry.addViewController("/help").setViewName("/help");
+		registry.addViewController("/contact").setViewName("/contact");
 	}
 
 	@Bean
@@ -55,11 +62,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		handlerAdapter.setSaveOutputToFlashScopeOnRedirect(true);
 		return handlerAdapter;
 	}
-
-/*	@Bean(name = "search")
-	public SearchFlowHandler SearchFlowHandler() {
-		return new SearchFlowHandler();
-	} */
 
 	@Bean
 	public AjaxThymeleafViewResolver tilesViewResolver() {
