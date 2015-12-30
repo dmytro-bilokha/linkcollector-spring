@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import bilokhado.linkcollector.service.ConfigService;
+import bilokhado.linkcollector.service.StoreService;
 
 @Controller
 @RequestMapping("/results")
@@ -16,6 +17,9 @@ public class ResultsController {
 
 	@Autowired
 	ConfigService conf;
+	
+	@Autowired
+	StoreService storeService;
 	
 	@RequestMapping(method = GET)
 	public String resultsPage(
@@ -29,6 +33,7 @@ public class ResultsController {
 				// We just ignore exception, because request param is not
 				// mandatory
 			}
+			storeService.store(tagsString);
 		}
 		model.addAttribute("tagslist", tags);
 		try {
@@ -38,6 +43,7 @@ public class ResultsController {
 			throw new RuntimeException(e);
 		}
 		System.out.println(conf.getConfigValue("AzureKey"));
+		
 		return "/results";
 	}
 

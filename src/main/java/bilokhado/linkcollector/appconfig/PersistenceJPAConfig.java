@@ -55,29 +55,15 @@ public class PersistenceJPAConfig {
 		return new PersistenceExceptionTranslationPostProcessor();
 	}
 
-	/*
-	 * <properties> <property
-	 * name="javax.persistence.schema-generation.database.action"
-	 * value="drop-and-create" /> <property
-	 * name="javax.persistence.schema-generation.create-source" value="script"
-	 * /> <property name="javax.persistence.schema-generation.drop-source"
-	 * value="script" /> <property
-	 * name="javax.persistence.schema-generation.create-script-source"
-	 * value="META-INF/sql/create.sql" /> <property
-	 * name="javax.persistence.schema-generation.drop-script-source"
-	 * value="META-INF/sql/drop.sql" /> <property
-	 * name="javax.persistence.sql-load-script-source"
-	 * value="META-INF/sql/load.sql" />
-	 */
 	Properties additionalProperties() {
 		Properties properties = new Properties();
-		properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
 		properties.setProperty("javax.persistence.schema-generation.database.action", "drop-and-create");
 		properties.setProperty("javax.persistence.schema-generation.create-source", "script");
 		properties.setProperty("javax.persistence.schema-generation.drop-source", "script");
 		properties.setProperty("javax.persistence.schema-generation.create-script-source", "META-INF/create.sql");
 		properties.setProperty("javax.persistence.schema-generation.drop-script-source", "META-INF/drop.sql");
 		properties.setProperty("javax.persistence.sql-load-script-source", "META-INF/load.sql");
+		properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
 		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
 		return properties;
 	}
