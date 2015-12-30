@@ -14,7 +14,10 @@
 	<springframework.version>4.2.3.RELEASE</springframework.version>
 	<javax.json.version>1.0.4</javax.json.version>
 	<javax.servlet-api.version>3.1.0</javax.servlet-api.version>
+	<javax.jta.version>1.1</javax.jta.version>
 	<hibernatevalidator.version>5.2.2.Final</hibernatevalidator.version>
+	<hibernateentitymanager.version>5.0.6.Final</hibernateentitymanager.version>
+	<mysqlconnector.version>5.1.38</mysqlconnector.version>
 	<maven.compiler.source>1.8</maven.compiler.source>
 	<maven.compiler.target>1.8</maven.compiler.target>
 	<failOnMissingWebXml>false</failOnMissingWebXml>
@@ -29,6 +32,12 @@
 	    <artifactId>thymeleaf</artifactId>
 	    <version>${thymeleaf.version}</version>
 	    <scope>compile</scope>
+   	    <exclusions>
+		<exclusion>
+		    <artifactId>javassist</artifactId>
+		    <groupId>org.javassist</groupId>
+		</exclusion>
+	    </exclusions>
 	</dependency>
 
 	<dependency>
@@ -55,6 +64,11 @@
 	    <artifactId>javax.servlet-api</artifactId>
 	    <version>${javax.servlet-api.version}</version>
 	    <scope>provided</scope>
+	</dependency>
+	<dependency>
+	    <groupId>javax.transaction</groupId>
+	    <artifactId>jta</artifactId>
+	    <version>${javax.jta.version}</version>
 	</dependency>
 
 	<dependency>
@@ -112,11 +126,42 @@
 	    <version>${springframework.version}</version>
 	    <scope>compile</scope>
 	</dependency>
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-jdbc</artifactId>
+	    <version>${springframework.version}</version>
+	    <scope>compile</scope>
+	</dependency>				
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-orm</artifactId>
+	    <version>${springframework.version}</version>
+	    <scope>compile</scope>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-tx</artifactId>
+	    <version>${springframework.version}</version>
+	    <scope>compile</scope>
+	</dependency>
 
 	<dependency>
 	    <groupId>org.hibernate</groupId>
 	    <artifactId>hibernate-validator</artifactId>
 	    <version>${hibernatevalidator.version}</version>
+	</dependency>
+
+	<dependency>
+	    <groupId>org.hibernate</groupId>
+	    <artifactId>hibernate-entitymanager</artifactId>
+	    <version>${hibernateentitymanager.version}</version>
+	</dependency>
+
+	<dependency>
+	    <groupId>mysql</groupId>
+	    <artifactId>mysql-connector-java</artifactId>
+	    <version>${mysqlconnector.version}</version>
+	    <scope>runtime</scope>
 	</dependency>
 
     </dependencies>
