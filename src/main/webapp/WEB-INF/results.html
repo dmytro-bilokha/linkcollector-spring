@@ -15,26 +15,40 @@
 <body>
 	<div id="wrapper">
 		<div th:replace="template :: header"></div>
-		<p>Thank you!</p>
-		<p>
-			Your query is: <span th:text="${query}">fake query</span>
+		<p class="edit-link">
+			<a href="#" class="edit-link"
+				th:href="@{/search} + '?query=' + ${param.query[0]} + '&amp;tags=' + ${param.tags[0]}">Edit
+				search</a>
 		</p>
-		<div class="tagslist" th:unless="${#lists.isEmpty(tagslist.tags)}">
-			<h2>List of tags</h2>
-			<table>
-				<tr th:each="qt : ${tagslist.tags}">
-					<td th:text="${qt.tagText}">Tag Text</td>
-					<td th:text="${qt.tagWeight}">Tag Weight</td>
-				</tr>
-			</table>
+		<div id="notagsmsg" th:if="${#lists.isEmpty(results)}">
+			<p class="notags-message">Not found any result...</p>
 		</div>
-		<form action="#" th:action="@{/search} + '?tags=' + ${param.tags[0]}"
-			method="get">
-			<button type="submit">Book Hotel</button>
-		</form>
-		<a href="#"
-			th:href="@{/search} + '?query=' + ${param.query[0]} + '&amp;tags=' + ${param.tags[0]}">Edit
-			tags</a>
+		<table class="results-table" th:unless="${#lists.isEmpty(results)}">
+			<caption class="tags-table-caption">
+				Search results for<br /> <span th:text="${searchQuery}">your
+					search query</span>
+			</caption>
+			<tbody>
+				<tr th:each="result, iterStat : ${results}"
+					class="results-table-row">
+					<td class="results-table-1-col">
+						<p>Score:</p>
+						<p th:text="${result.score}">42</p>
+					</td>
+					<td class="results-table-2-col">
+						<p>
+							<a href="#" th:href="${result.scoredWebResult.url}"
+								th:text="${result.scoredWebResult.title}">Title of result</a>
+						</p>
+						<p class="display-url"
+							th:text="${result.scoredWebResult.displayUrl}">Display URL of
+							web result</p>
+						<p th:text="${result.scoredWebResult.description}">Text
+							description of web result</p>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 		<div th:replace="template :: copyright"></div>
 	</div>
 </body>
