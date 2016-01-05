@@ -6,7 +6,8 @@
     http://www.springframework.org/schema/webflow/spring-webflow-2.4.xsd">
 
 	<on-start>
-		<evaluate expression="searchController.getSearchForm(requestParameters.tags)"
+		<evaluate
+			expression="searchController.getSearchForm(requestParameters.query, requestParameters.tags)"
 			result="flowScope.searchForm" />
 	</on-start>
 
@@ -16,28 +17,26 @@
 			<render fragments="tagstable" />
 		</transition>
 
-		<transition on="delete" bind="false"
-			validate="false">
+		<transition on="delete" bind="false" validate="false">
 			<evaluate expression="flowScope.searchForm.removeTag(requestParameters.qtidx)"></evaluate>
 			<render fragments="tagstable" />
 		</transition>
-		
-		<transition on="edit" bind="false"
-			validate="false">
-			<evaluate expression="flowScope.searchForm.setEditedTag(requestParameters.qtidx)"></evaluate>
+
+		<transition on="edit" bind="false" validate="false">
+			<evaluate
+				expression="flowScope.searchForm.setEditedTag(requestParameters.qtidx)"></evaluate>
 			<render fragments="tagstable" />
 		</transition>
-		
+
 		<transition on="update" validation-hints="'update'">
 			<evaluate expression="flowScope.searchForm.updateEditedTag()"></evaluate>
 			<render fragments="tagstable" />
 		</transition>
-		
-		<transition on="show" to="end" />
-		</view-state>
-	
-	<end-state id="end" view="externalRedirect:contextRelative:/processing?tags=#{flowScope.searchForm.tags.toString()}">
-<!-- 		<output name="tags" value="searchForm.tags" /> -->
-<!-- 		<output name="tagstr" value="searchForm.tags.toString()" /> -->
+
+		<transition on="search" validation-hints="'search'" to="end" />
+	</view-state>
+
+	<end-state id="end"
+		view="externalRedirect:contextRelative:/processing?query=#{flowScope.searchForm.getEncodedSearchQuery()}&amp;tags=#{flowScope.searchForm.tags.toString()}">
 	</end-state>
 </flow>

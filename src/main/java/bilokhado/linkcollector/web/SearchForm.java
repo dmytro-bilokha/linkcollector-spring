@@ -1,6 +1,8 @@
 package bilokhado.linkcollector.web;
 
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -22,6 +24,8 @@ public class SearchForm implements Serializable {
 	/**
 	 * Search query string.
 	 */
+	@NotEmpty(groups = Search.class)
+	@Size(max = 150)
 	private String searchQuery;
 
 	/**
@@ -58,7 +62,8 @@ public class SearchForm implements Serializable {
 	public SearchForm() {
 	}
 
-	public SearchForm(String tagsJsonString) {
+	public SearchForm(String encodedSearchQuery, String tagsJsonString) {
+		this.searchQuery = new String(Base64.getUrlDecoder().decode(encodedSearchQuery), StandardCharsets.UTF_8);
 		if (tagsJsonString != null && !tagsJsonString.isEmpty()) {
 			try {
 				tags.populateFromJson(tagsJsonString);
@@ -115,6 +120,10 @@ public class SearchForm implements Serializable {
 		return searchQuery;
 	}
 
+	public String getEncodedSearchQuery() {
+		return Base64.getUrlEncoder().withoutPadding()
+				.encodeToString(searchQuery.getBytes(StandardCharsets.UTF_8));
+	}
 	public void setSearchQuery(String searchQuery) {
 		this.searchQuery = searchQuery;
 	}
@@ -163,5 +172,8 @@ public class SearchForm implements Serializable {
 	}
 
 	public interface Update {
+	}
+
+	public interface Search {
 	}
 }

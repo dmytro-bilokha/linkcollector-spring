@@ -2,6 +2,9 @@ package bilokhado.linkcollector.web;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,14 +20,14 @@ public class ResultsController {
 
 	@Autowired
 	ConfigService conf;
-	
+
 	@Autowired
 	StoreService storeService;
-	
+
 	@RequestMapping(method = GET)
-	public String resultsPage(
-			@RequestParam(value = "tags", required = true) String tagsString,
-			Model model) {
+	public String resultsPage(@RequestParam(value = "query", required = true) String query,
+			@RequestParam(value = "tags", required = true) String tagsString, Model model) {
+		model.addAttribute("query", new String(Base64.getUrlDecoder().decode(query), StandardCharsets.UTF_8));
 		TagsList tags = new TagsList();
 		if (tagsString != null && !tagsString.isEmpty()) {
 			try {
@@ -43,7 +46,7 @@ public class ResultsController {
 			throw new RuntimeException(e);
 		}
 		System.out.println(conf.getConfigValue("AzureKey"));
-		
+
 		return "/results";
 	}
 
