@@ -12,6 +12,9 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+/**
+ * A class to configure thread pool of asynchronous tasks.
+ */
 @Configuration
 @ComponentScan("bilokhado.linkcollector.service")
 @EnableAsync

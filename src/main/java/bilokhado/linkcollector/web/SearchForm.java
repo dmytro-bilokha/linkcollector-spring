@@ -51,20 +51,40 @@ public class SearchForm implements Serializable {
 	 */
 	private TagsList tags = new TagsList();
 
+	/**
+	 * Index of currently edited tag.
+	 */
 	private Integer editedTagIndex;
 
+	/**
+	 * Text of edited tag.
+	 */
 	@NotEmpty(groups = Update.class)
 	@Size(max = 50)
 	private String editedTagText;
 
+	/**
+	 * Weight of edited tag.
+	 */
 	@NotNull(groups = Update.class)
 	@Min(value = -999, groups = Update.class)
 	@Max(value = 9999, groups = Update.class)
 	private Integer editedTagWeight;
 
+	/**
+	 * Default no-arguments constructor.
+	 */
 	public SearchForm() {
 	}
 
+	/**
+	 * Constructor to create form filled with data.
+	 * 
+	 * @param encodedSearchQuery
+	 *            search query Base64 encoded string
+	 * @param tagsJsonString
+	 *            string representing encoded tags list
+	 */
 	public SearchForm(String encodedSearchQuery, String tagsJsonString) {
 		this.searchQuery = new String(Base64.getUrlDecoder().decode(encodedSearchQuery), StandardCharsets.UTF_8);
 		if (tagsJsonString != null && !tagsJsonString.isEmpty()) {
@@ -93,7 +113,7 @@ public class SearchForm implements Serializable {
 	 * Removes the tag from the list of tags.
 	 * 
 	 * @param index
-	 *            the tag's index to remove from list.
+	 *            the tag's index to remove from list
 	 */
 	public void removeTag(int index) {
 		tags.remove(index);
@@ -105,6 +125,12 @@ public class SearchForm implements Serializable {
 		}
 	}
 
+	/**
+	 * Prepares data for tag editing.
+	 * 
+	 * @param index
+	 *            the tag's index to edit
+	 */
 	public void setEditedTag(int index) {
 		QueryTag editedTag = tags.getTag(index);
 		editedTagIndex = index;
@@ -112,6 +138,9 @@ public class SearchForm implements Serializable {
 		editedTagWeight = editedTag.getTagWeight();
 	}
 
+	/**
+	 * Saves tag editing result.
+	 */
 	public void updateEditedTag() {
 		QueryTag editedTag = tags.getTag(editedTagIndex);
 		editedTag.setTagText(editedTagText);
@@ -124,9 +153,9 @@ public class SearchForm implements Serializable {
 	}
 
 	public String getEncodedSearchQuery() {
-		return Base64.getUrlEncoder().withoutPadding()
-				.encodeToString(searchQuery.getBytes(StandardCharsets.UTF_8));
+		return Base64.getUrlEncoder().withoutPadding().encodeToString(searchQuery.getBytes(StandardCharsets.UTF_8));
 	}
+
 	public void setSearchQuery(String searchQuery) {
 		this.searchQuery = searchQuery;
 	}

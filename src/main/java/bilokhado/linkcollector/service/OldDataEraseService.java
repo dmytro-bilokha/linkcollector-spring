@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * A bean to clean database from old data
+ * A service to clean database from old data.
  */
 @Component
 public class OldDataEraseService {
@@ -22,8 +22,7 @@ public class OldDataEraseService {
 	/**
 	 * Logger for logging each invocation of database cleaning.
 	 */
-	private static final Logger logger = Logger
-			.getLogger("bilokhado.linkcollector.service.OldDataEraseService");
+	private static final Logger logger = Logger.getLogger("bilokhado.linkcollector.service.OldDataEraseService");
 
 	/**
 	 * Entity manager for access database.
@@ -44,7 +43,7 @@ public class OldDataEraseService {
 	private String keepQueryHours;
 
 	/**
-	 * Gets configuration option to store it.
+	 * Gets configuration option to stores it.
 	 */
 	@PostConstruct
 	private void init() {
@@ -54,7 +53,7 @@ public class OldDataEraseService {
 	/**
 	 * Removes old date from database via named MySQL native query
 	 */
-	@Scheduled(cron="30 */5 * * * *")
+	@Scheduled(cron = "30 */5 * * * *")
 	@Transactional
 	public void removeOutdated() {
 		Query query = em.createNamedQuery("SearchQuery.deleteOutdated");

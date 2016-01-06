@@ -19,7 +19,7 @@ import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
 
 /**
- * A bean to score the given link.
+ * A service to score the given link.
  * 
  */
 @Component

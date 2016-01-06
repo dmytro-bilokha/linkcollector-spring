@@ -10,6 +10,9 @@ import org.springframework.core.type.filter.RegexPatternTypeFilter;
 
 import bilokhado.linkcollector.appconfig.RootConfig.WebPackage;
 
+/**
+ * A class to configure web components scanning by Spring.
+ */
 @Configuration
 @ComponentScan(basePackages = { "bilokhado.linkcollector" }, excludeFilters = { @Filter(type = FilterType.CUSTOM, value = WebPackage.class) })
 public class RootConfig {

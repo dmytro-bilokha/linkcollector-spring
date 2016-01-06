@@ -18,10 +18,18 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+/*
+ * A class for JPA configuration.
+ */
 @Configuration
 @EnableTransactionManagement
 public class PersistenceJPAConfig {
 
+	/**
+	 * Creates and configures entity manager factory.
+	 * 
+	 * @return entity manager factory bean
+	 */
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
@@ -33,6 +41,11 @@ public class PersistenceJPAConfig {
 		return em;
 	}
 
+	/**
+	 * Configures data source from mysql database.
+	 * 
+	 * @return data source object
+	 */
 	@Bean
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -43,6 +56,13 @@ public class PersistenceJPAConfig {
 		return dataSource;
 	}
 
+	/**
+	 * Creates transaction manager.
+	 * 
+	 * @param emf
+	 *            Entity manager factory
+	 * @return transaction manager object
+	 */
 	@Bean
 	public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
@@ -50,11 +70,21 @@ public class PersistenceJPAConfig {
 		return transactionManager;
 	}
 
+	/**
+	 * Creates exception translation for JPA.
+	 * 
+	 * @return exception translation post-processor
+	 */
 	@Bean
 	public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
 		return new PersistenceExceptionTranslationPostProcessor();
 	}
 
+	/**
+	 * Creates properties object and sets JPA properties.
+	 * 
+	 * @return properties object
+	 */
 	Properties additionalProperties() {
 		Properties properties = new Properties();
 		properties.setProperty("javax.persistence.schema-generation.database.action", "drop-and-create");

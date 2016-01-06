@@ -41,7 +41,8 @@ import bilokhado.linkcollector.entity.TagsList;
 import bilokhado.linkcollector.entity.WebResult;
 
 /**
- * A bean to find web pages with Bing search engine and store they in database.
+ * A service to find web pages with Bing search engine and store they in
+ * database.
  */
 @Component
 public class SearchService {
@@ -52,7 +53,7 @@ public class SearchService {
 	private static final Logger logger = Logger.getLogger("bilokhado.linkcollector.service.SearchService");
 
 	/**
-	 * String pattern for Bing search engine/
+	 * String pattern for Bing search engine.
 	 */
 	private static String AZURE_URL_PATTERN = "https://api.datamarket.azure.com/Bing/Search/v1/Web?Options=%%27DisableLocationDetection%%27&$top=50&$format=json&Query=%%27%s%%27";
 
@@ -118,7 +119,7 @@ public class SearchService {
 	}
 
 	/**
-	 * Calculates query hash
+	 * Calculates query hash.
 	 * 
 	 * @param query
 	 *            the query string to process

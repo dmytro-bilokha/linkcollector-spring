@@ -14,13 +14,33 @@ import org.springframework.web.bind.annotation.RequestParam;
 import bilokhado.linkcollector.entity.TagsList;
 import bilokhado.linkcollector.service.SearchService;
 
+/**
+ * A controller for results page.
+ *
+ */
 @Controller
 @RequestMapping("/results")
 public class ResultsController {
 
+	/**
+	 * Reference to search service object for compiling business logic.
+	 */
 	@Autowired
 	SearchService searcher;
 
+	/**
+	 * Calls search service and prepares data for results page.
+	 * 
+	 * @param encodedQuery
+	 *            search query string encoded via Base64
+	 * @param tagsString
+	 *            tags list representing JSON string encoded via Base64
+	 * @param model
+	 *            model of results page
+	 * @return view name of results page
+	 * @throws Exception
+	 *             if business logic or data preparation fails
+	 */
 	@RequestMapping(method = GET)
 	public String resultsPage(@RequestParam(value = "query", required = true) String encodedQuery,
 			@RequestParam(value = "tags", required = true) String tagsString, Model model) throws Exception {

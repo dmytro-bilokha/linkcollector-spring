@@ -12,7 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * A bean to read, store, and return on demand configuration options.
+ * A service to read, store, and return on demand configuration options.
  *
  */
 @Component
@@ -58,7 +58,7 @@ public class ConfigService {
 	 * @param name
 	 *            the name of parameter to get
 	 * @return options string value
-	 * @throws EJBException
+	 * @throws IllegalArgumentException
 	 *             if the parameter is not found
 	 */
 	public String getConfigValue(String name) {

@@ -18,19 +18,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.webflow.mvc.servlet.FlowHandlerAdapter;
 import org.springframework.webflow.mvc.servlet.FlowHandlerMapping;
 
+/**
+ * 
+ * The main class for web properties configuration.
+ *
+ */
 @Configuration
 @EnableWebMvc
 @ComponentScan("bilokhado.linkcollector.web")
 public class WebConfig extends WebMvcConfigurerAdapter {
 
+	/**
+	 * Reference to web flow configuration object.
+	 */
 	@Autowired
 	private WebFlowConfig webFlowConfig;
 
+	/**
+	 * Adds resource handler with needed location.
+	 */
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/", "classpath:/META-INF/web-resources/");
 	}
 
+	/**
+	 * Sets view names for simple, almost static pages to avoid trivial
+	 * controllers implementation.
+	 */
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/processing").setViewName("/processing");
@@ -39,6 +54,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		registry.addViewController("/contact").setViewName("/contact");
 	}
 
+	/**
+	 * Creates flow handler mapping and configure it.
+	 * 
+	 * @return flow handler mapping object
+	 */
 	@Bean
 	public FlowHandlerMapping flowHandlerMapping() {
 		FlowHandlerMapping handlerMapping = new FlowHandlerMapping();
@@ -47,6 +67,13 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		return handlerMapping;
 	}
 
+	/**
+	 * Creates Thymeleaf view resolver and sets UTF-8 encoding.
+	 * 
+	 * @param templateEngine
+	 *            template engine to set in view resolver
+	 * @return view resolver object
+	 */
 	@Bean
 	public ViewResolver viewResolver(SpringTemplateEngine templateEngine) {
 		ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
@@ -55,6 +82,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		return viewResolver;
 	}
 
+	/**
+	 * Creates web flow handler adapter and configures it.
+	 * 
+	 * @return web flow handler adapter
+	 */
 	@Bean
 	public FlowHandlerAdapter flowHandlerAdapter() {
 		FlowHandlerAdapter handlerAdapter = new FlowHandlerAdapter();
@@ -63,6 +95,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		return handlerAdapter;
 	}
 
+	/**
+	 * Creates and configures ajax Thymeleaf view resolver.
+	 * 
+	 * @return ajax Thymeleaf view resolver object
+	 */
 	@Bean
 	public AjaxThymeleafViewResolver tilesViewResolver() {
 		AjaxThymeleafViewResolver viewResolver = new AjaxThymeleafViewResolver();
@@ -72,6 +109,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		return viewResolver;
 	}
 
+	/**
+	 * Creates and configures Spring template engine.
+	 * 
+	 * @return Spring template engine object
+	 */
 	@Bean
 	public SpringTemplateEngine templateEngine() {
 		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
@@ -79,6 +121,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		return templateEngine;
 	}
 
+	/**
+	 * Creates and configures template resolver.
+	 * 
+	 * @return template resolver object
+	 */
 	@Bean
 	public ServletContextTemplateResolver templateResolver() {
 		ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
@@ -90,11 +137,19 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		return templateResolver;
 	}
 
+	/**
+	 * Enables default servlet handling
+	 */
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
 	}
 
+	/**
+	 * Creates and configures error messages source.
+	 * 
+	 * @return resource message source object
+	 */
 	@Bean
 	public ResourceBundleMessageSource messageSource() {
 		ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();

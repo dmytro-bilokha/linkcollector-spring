@@ -89,13 +89,13 @@ public class TagsList implements Serializable {
 	}
 
 	/**
-	 * Populates query tags list from given JSON string. All unknown tags are
-	 * ignored.
+	 * Populates query tags list from given JSON Base64 encoded string. All
+	 * unknown tags are ignored.
 	 * 
-	 * @param jsonData
-	 *            the string with JSON data
+	 * @param json64Data
+	 *            the encoded string with JSON data
 	 * @throws Exception
-	 *             if JSON creation error occurs
+	 *             if error occurs
 	 */
 	public void populateFromJson(String json64Data) throws Exception {
 		String jsonData = null;
@@ -134,8 +134,8 @@ public class TagsList implements Serializable {
 	}
 
 	/**
-	 * Converts query tags list to JSON string and returns it. In case of
-	 * conversion errors, returns {@code null}.
+	 * Converts query tags list to JSON Base64 encoded string and returns it. In
+	 * case of conversion errors, returns {@code null}.
 	 */
 	public String getAsEncodedString() {
 		StringWriter buffer = new StringWriter();
