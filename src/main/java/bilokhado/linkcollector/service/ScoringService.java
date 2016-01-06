@@ -1,7 +1,7 @@
 package bilokhado.linkcollector.service;
 
-//import org.jsoup.Jsoup;
-//import org.jsoup.nodes.Document;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import bilokhado.linkcollector.web.QueryTag;
 import bilokhado.linkcollector.entity.ScoringResult;
@@ -27,7 +27,7 @@ public class ScoringService {
 	/**
 	 * Logger for errors logging.
 	 */
-	private static final Logger logger = Logger.getLogger("bilokhado.linkcollector.ejb.ScoringBean");
+	private static final Logger logger = Logger.getLogger("bilokhado.linkcollector.service.ScoringService");
 
 	/**
 	 * Reference to {@code ConfigBean} bean for reading timeout value.
@@ -62,18 +62,20 @@ public class ScoringService {
 	 */
 	@Async
 	public Future<ScoringResult> determineScore(QueryTag[] tags, WebResult wr) {
-		/*
-		 * String link = wr.getUrl(); Document doc; try { doc =
-		 * Jsoup.connect(link).timeout(connectTimeout).get(); } catch (Exception
-		 * e) { logger.log(Level.SEVERE, "Unable to get html from url: " +
-		 * link); return new AsyncResult<>(new ScoringResult(wr, 0)); } String
-		 * pageText = doc.body().text().toLowerCase(); int score = 0; for
-		 * (QueryTag q : tags) { if (pageText.contains(q.getTagText())) score +=
-		 * q.getTagWeight(); } return new AsyncResult<>(new ScoringResult(wr,
-		 * score));
-		 */
-		System.out.println("Execute method with configured executor - "
-			      + Thread.currentThread().getName());
-		return new AsyncResult<>(new ScoringResult(wr, 0));
+		String link = wr.getUrl();
+		Document doc;
+		try {
+			doc = Jsoup.connect(link).timeout(connectTimeout).get();
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Unable to get html from url: " + link, e);
+			return new AsyncResult<>(new ScoringResult(wr, 0));
+		}
+		String pageText = doc.body().text().toLowerCase();
+		int score = 0;
+		for (QueryTag q : tags) {
+			if (pageText.contains(q.getTagText()))
+				score += q.getTagWeight();
+		}
+		return new AsyncResult<>(new ScoringResult(wr, score));
 	}
 }

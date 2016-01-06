@@ -9,11 +9,13 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 @Configuration
 @ComponentScan("bilokhado.linkcollector.service")
 @EnableAsync
+@EnableScheduling
 public class AsyncPoolConfig implements AsyncConfigurer {
 
 	@Override
@@ -24,7 +26,7 @@ public class AsyncPoolConfig implements AsyncConfigurer {
 		executor.setQueueCapacity(30);
 		executor.setKeepAliveSeconds(120);
 		executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
-		executor.setThreadNamePrefix("DefaultExecutor-");
+		executor.setThreadNamePrefix("DefExec-");
 		executor.initialize();
 		return executor;
 	}

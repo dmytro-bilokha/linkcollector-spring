@@ -218,7 +218,7 @@ public class SearchService {
 		try {
 			azureUrlString = String.format(AZURE_URL_PATTERN, URLEncoder.encode(query, "UTF-8"));
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "Unable to url-encode query: " + query);
+			logger.log(Level.SEVERE, "Unable to url-encode query: " + query, e);
 			throw new Exception("Unable to url-encode query: " + query, e);
 		}
 		try {
@@ -230,13 +230,13 @@ public class SearchService {
 			urlcon.setReadTimeout(readerTimeout);
 			stream = new InputStreamReader(urlcon.getInputStream(), StandardCharsets.UTF_8);
 		} catch (MalformedURLException e) {
-			logger.log(Level.SEVERE, "Unable to create URL object: " + azureUrlString);
+			logger.log(Level.SEVERE, "Unable to create URL object: " + azureUrlString, e);
 			throw new Exception("Unable to create URL object: " + azureUrlString, e);
 		} catch (ProtocolException e) {
-			logger.log(Level.SEVERE, "Unable to set \"GET\" method for connection: " + urlcon);
+			logger.log(Level.SEVERE, "Unable to set \"GET\" method for connection: " + urlcon, e);
 			throw new Exception("Unable to set \"GET\" method for connection: " + urlcon, e);
 		} catch (IOException e) {
-			logger.log(Level.SEVERE, "Input/output error happened during connection to URL: " + azureUrlString);
+			logger.log(Level.SEVERE, "Input/output error happened during connection to URL: " + azureUrlString, e);
 			throw new Exception("Input/output error happened during connection to URL: " + azureUrlString, e);
 		}
 		try (BufferedReader buf = new BufferedReader(stream)) {
@@ -244,7 +244,7 @@ public class SearchService {
 			while ((line = buf.readLine()) != null)
 				out.append(line);
 		} catch (IOException e) {
-			logger.log(Level.SEVERE, "Input/output error happened during reading data from URL: " + azureUrlString);
+			logger.log(Level.SEVERE, "Input/output error happened during reading data from URL: " + azureUrlString, e);
 			throw new Exception("Input/output error happened during reading data from URL: " + azureUrlString, e);
 		}
 		try (JsonReader jreader = Json.createReader(new StringReader(out.toString()))) {
@@ -260,7 +260,7 @@ public class SearchService {
 				em.persist(found);
 			}
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "Error happened during parsing JSON from URL: " + azureUrlString);
+			logger.log(Level.SEVERE, "Error happened during parsing JSON from URL: " + azureUrlString, e);
 			throw new Exception("Error happened during parsing JSON from URL: " + azureUrlString, e);
 		}
 		return searchResult;
