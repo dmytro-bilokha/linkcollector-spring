@@ -29,7 +29,7 @@ user and password must be according to parameters in
 ## Application Configuration
 
 The application configuration options are located in
-`/src/main/webapp/WEB-INF/classes/config`.
+`/src/main/resources/config`.
 You should edit the `config.sample` file from sources according to provided
 comments and save it as `config`.
 
