@@ -11,6 +11,9 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import bilokhado.linkcollector.entity.QueryTag;
+import bilokhado.linkcollector.entity.TagsList;
+
 /**
  * A backing bean for home page.
  */

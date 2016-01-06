@@ -1,4 +1,4 @@
-package bilokhado.linkcollector.web;
+package bilokhado.linkcollector.entity;
 
 import java.io.Serializable;
 import java.io.StringReader;

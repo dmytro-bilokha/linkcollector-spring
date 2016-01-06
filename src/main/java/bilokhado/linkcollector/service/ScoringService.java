@@ -3,7 +3,7 @@ package bilokhado.linkcollector.service;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import bilokhado.linkcollector.web.QueryTag;
+import bilokhado.linkcollector.entity.QueryTag;
 import bilokhado.linkcollector.entity.ScoringResult;
 import bilokhado.linkcollector.entity.WebResult;
 

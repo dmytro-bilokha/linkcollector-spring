@@ -34,10 +34,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 
-import bilokhado.linkcollector.web.QueryTag;
+import bilokhado.linkcollector.entity.QueryTag;
 import bilokhado.linkcollector.entity.ScoringResult;
 import bilokhado.linkcollector.entity.SearchQuery;
-import bilokhado.linkcollector.web.TagsList;
+import bilokhado.linkcollector.entity.TagsList;
 import bilokhado.linkcollector.entity.WebResult;
 
 /**
