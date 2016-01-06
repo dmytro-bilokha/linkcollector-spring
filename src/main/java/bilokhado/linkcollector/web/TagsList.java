@@ -137,8 +137,7 @@ public class TagsList implements Serializable {
 	 * Converts query tags list to JSON string and returns it. In case of
 	 * conversion errors, returns {@code null}.
 	 */
-	@Override
-	public String toString() {
+	public String getAsEncodedString() {
 		StringWriter buffer = new StringWriter();
 		try (JsonGenerator jgen = Json.createGenerator(buffer)) {
 			jgen.writeStartObject();

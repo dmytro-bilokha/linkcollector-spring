@@ -37,6 +37,6 @@
 	</view-state>
 
 	<end-state id="end"
-		view="externalRedirect:contextRelative:/processing?query=#{flowScope.searchForm.getEncodedSearchQuery()}&amp;tags=#{flowScope.searchForm.tags.toString()}">
+		view="externalRedirect:contextRelative:/processing?query=#{flowScope.searchForm.getEncodedSearchQuery()}&amp;tags=#{flowScope.searchForm.tags.getAsEncodedString()}">
 	</end-state>
 </flow>
