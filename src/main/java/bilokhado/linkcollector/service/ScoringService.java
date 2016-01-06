@@ -72,6 +72,8 @@ public class ScoringService {
 		 * q.getTagWeight(); } return new AsyncResult<>(new ScoringResult(wr,
 		 * score));
 		 */
+		System.out.println("Execute method with configured executor - "
+			      + Thread.currentThread().getName());
 		return new AsyncResult<>(new ScoringResult(wr, 0));
 	}
 }

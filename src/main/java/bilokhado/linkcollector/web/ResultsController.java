@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import bilokhado.linkcollector.service.ConfigService;
 import bilokhado.linkcollector.service.SearchService;
-import bilokhado.linkcollector.service.StoreService;
 
 @Controller
 @RequestMapping("/results")
