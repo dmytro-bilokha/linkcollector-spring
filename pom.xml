@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>bilokhado.linkcollector</groupId>
     <artifactId>linkcollector-spring</artifactId>
-    <version>0.0.1</version>
+    <version>1.0.0</version>
     <packaging>war</packaging>
     <name>LinkCollector-spring</name>
     <description>Spring version of LinkCollector</description>
