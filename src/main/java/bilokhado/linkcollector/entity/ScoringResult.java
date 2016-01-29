@@ -15,7 +15,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "SCORING_RESULT")
-@NamedQuery(name = "ScoringResult.findByTagsHash", query = "SELECT sr FROM ScoringResult sr WHERE sr.tagsHash = :hash ORDER BY sr.score DESC")
+@NamedQuery(name = "ScoringResult.findByHashes", query = "SELECT sr FROM ScoringResult sr "
+		+ "JOIN sr.scoredWebResult wr WHERE sr.tagsHash = :tagshash AND "
+		+ "wr.searchQuery.queryHash = :queryhash ORDER BY sr.score DESC")
 public class ScoringResult implements Serializable, Comparable<ScoringResult> {
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -62,19 +64,21 @@ public class ScoringResult implements Serializable, Comparable<ScoringResult> {
 
 	@Override
 	public int compareTo(ScoringResult other) {
-		if (this.score > other.getScore())
+		if (this.score > other.score)
 			return -1;
-		if (this.score < other.getScore())
+		if (this.score < other.score)
 			return 1;
-		return 0;
+		int comparingResult;
+		if ((comparingResult = scoredWebResult.compareTo(other.scoredWebResult)) != 0)
+			return comparingResult;
+		return Long.compare(tagsHash, other.tagsHash);
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = prime + score;
-		result = prime * result
-				+ ((scoredWebResult == null) ? 0 : scoredWebResult.hashCode());
+		result = prime * result + ((scoredWebResult == null) ? 0 : scoredWebResult.hashCode());
 		result = prime * result + (int) (tagsHash ^ (tagsHash >>> 32));
 		return result;
 	}
@@ -102,7 +106,8 @@ public class ScoringResult implements Serializable, Comparable<ScoringResult> {
 
 	@Override
 	public String toString() {
-		return "ScoringResult [tagsHash=" + tagsHash + "]";
+		return "ScoringResult [tagsHash=" + tagsHash + ", scoredWebResult=" + scoredWebResult + ", score=" + score
+				+ "]";
 	}
 
 }

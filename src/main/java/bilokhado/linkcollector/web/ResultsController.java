@@ -47,8 +47,7 @@ public class ResultsController {
 		String query = new String(Base64.getUrlDecoder().decode(encodedQuery), StandardCharsets.UTF_8);
 		TagsList tags = new TagsList();
 		tags.populateFromJson(tagsString);
-		tags.normalize();
-		model.addAttribute("results", searcher.search(query, tags));
+		model.addAttribute("results", searcher.search(query, tags.getNormalizedTagsArray()));
 		model.addAttribute("searchQuery", query);
 		return "/results";
 	}

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -16,6 +17,8 @@ import java.util.logging.Logger;
 import javax.json.Json;
 import javax.json.stream.JsonGenerator;
 import javax.json.stream.JsonParser;
+
+import bilokhado.linkcollector.exception.TagsListParsingException;
 
 /**
  * A class representing list of tags for web pages scoring.
@@ -54,16 +57,18 @@ public class TagsList implements Serializable {
 	 * Normalizes tags list via removing tags with zero weight, deleting
 	 * duplicates and converting tags text to lower case.
 	 */
-	public void normalize() {
+	public QueryTag[] getNormalizedTagsArray() {
 		Map<String, Boolean> seen = new HashMap<>();
+		List<QueryTag> normalizedTagsList = new ArrayList<>(tags.size());
 		ListIterator<QueryTag> iterator = tags.listIterator(tags.size());
 		while (iterator.hasPrevious()) {
 			QueryTag t = iterator.previous();
-			t.setTagText(t.getTagText().toLowerCase());
-			if (seen.putIfAbsent(t.getTagText(), Boolean.TRUE) != null || t.getTagWeight() == 0) {
-				iterator.remove();
+			String lowerTagText = t.getTagText().toLowerCase();
+			if (t.getTagWeight() != 0 && seen.putIfAbsent(lowerTagText, Boolean.TRUE) == null) {
+				normalizedTagsList.add(t);
 			}
 		}
+		return normalizedTagsList.toArray(new QueryTag[normalizedTagsList.size()]);
 	}
 
 	/**
@@ -74,6 +79,18 @@ public class TagsList implements Serializable {
 	public long calculateHash() {
 		long hash = 1;
 		for (QueryTag t : tags)
+			hash = 31 * hash + t.hashCode();
+		return hash;
+	}
+
+	/**
+	 * Calculates hash for storing in database and determining uniqueness.
+	 * 
+	 * @return the calculated hash
+	 */
+	public static long calculateHash(QueryTag[] tagsArray) {
+		long hash = 1;
+		for (QueryTag t : tagsArray)
 			hash = 31 * hash + t.hashCode();
 		return hash;
 	}
@@ -97,13 +114,13 @@ public class TagsList implements Serializable {
 	 * @throws Exception
 	 *             if error occurs
 	 */
-	public void populateFromJson(String json64Data) throws Exception {
+	public void populateFromJson(String json64Data) throws TagsListParsingException {
 		String jsonData = null;
 		try {
 			jsonData = new String(Base64.getUrlDecoder().decode(json64Data), StandardCharsets.UTF_8);
 		} catch (IllegalArgumentException e) {
 			logger.log(Level.SEVERE, "Error happen while trying to decode Base64 JSON string: " + json64Data, e);
-			throw new Exception("Unable to decode tags list from URL");
+			throw new TagsListParsingException("Unable to decode tags list from URL");
 		}
 		try (JsonParser parser = Json.createParser(new StringReader(jsonData))) {
 			String key = null;
@@ -129,7 +146,7 @@ public class TagsList implements Serializable {
 			}
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Error happen while parsing JSON string: " + jsonData, e);
-			throw new Exception("Unable to decode tags list from URL");
+			throw new TagsListParsingException("Unable to decode tags list from URL");
 		}
 	}
 
